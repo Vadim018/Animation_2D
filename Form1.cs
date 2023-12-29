@@ -298,3 +298,173 @@ namespace lr_3
 }
 
 */
+
+/*
+ 
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+namespace lr_3
+{
+    public partial class Form1 : Form
+    {
+        private Timer animationTimer;
+        private Random random = new Random();
+        private int objectSize = 50;
+        private int objectSpeed = 5;
+        private int objectDirectionX = 1;
+        private int objectDirectionY = 1;
+
+        public Form1()
+        {
+            InitializeComponent();
+            InitializePictureBox();
+            InitializeMenu();
+            InitializeTimer();
+        }
+
+        private void InitializePictureBox()
+        {
+            if (pictureBox1 == null)
+            {
+                pictureBox1 = new PictureBox();
+                SetPictureBoxProperties();
+                Controls.Add(pictureBox1);
+            }
+            else
+            {
+                SetPictureBoxProperties();
+            }
+        }
+
+        private void SetPictureBoxProperties()
+        {
+            pictureBox1.Size = new Size(500, 500);
+            pictureBox1.BackColor = Color.White;
+        }
+
+        private void InitializeMenu()
+        {
+            MenuStrip menuStrip = new MenuStrip();
+            ToolStripMenuItem imageMenu = new ToolStripMenuItem("&Image");
+            imageMenu.DropDownItems.Add("New", null, NewImage);
+            imageMenu.DropDownItems.Add("Open", null, OpenImage);
+
+            ToolStripMenuItem drawMenu = new ToolStripMenuItem("Draw");
+            drawMenu.DropDownItems.Add("Animal", null, DrawAnimal);
+            menuStrip.Items.Add(imageMenu);
+            menuStrip.Items.Add(drawMenu);
+
+            MainMenuStrip = menuStrip;
+            Controls.Add(menuStrip);
+        }
+
+        private void InitializeTimer()
+        {
+            animationTimer = new Timer();
+            animationTimer.Interval = 20;
+            animationTimer.Tick += AnimationTimer_Tick;
+            animationTimer.Start();
+        }
+
+        private void NewImage(object sender, EventArgs e)
+        {
+            pictureBox1.Image = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+            pictureBox1.Invalidate();
+        }
+
+        private void OpenImage(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "Image Files|*.png;*.jpg;*.jpeg;*.gif;*.bmp|All files|*.*";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    Image originalImage = Image.FromFile(openFileDialog.FileName);
+
+                    float scaleWidth = (float)pictureBox1.Width / originalImage.Width;
+                    float scaleHeight = (float)pictureBox1.Height / originalImage.Height;
+                    float scale = Math.Min(scaleWidth, scaleHeight);
+                    int newWidth = (int)(originalImage.Width * scale);
+                    int newHeight = (int)(originalImage.Height * scale);
+                    Image resizedImage = new Bitmap(newWidth, newHeight);
+
+                    using (Graphics g = Graphics.FromImage(resizedImage))
+                    {
+                        g.DrawImage(originalImage, 0, 0, newWidth, newHeight);
+                    }
+
+                    int margin = 0;
+                    int smallerWidth = pictureBox1.Width - margin;
+                    int smallerHeight = pictureBox1.Height - margin;
+                    Image smallerImage = new Bitmap(smallerWidth, smallerHeight);
+
+                    using (Graphics g = Graphics.FromImage(smallerImage))
+                    {
+                        g.DrawImage(resizedImage, 0, 0, smallerWidth, smallerHeight);
+                    }
+                    pictureBox1.Image = smallerImage;
+                    pictureBox1.Invalidate();
+                }
+            }
+        }
+
+ private void DrawAnimal(object sender, EventArgs e)
+        {
+            using (Graphics g = Graphics.FromImage(pictureBox1.Image))
+            {
+                int x = random.Next(0, pictureBox1.Width - objectSize);
+                int y = random.Next(0, pictureBox1.Height - objectSize);
+                Color randomColor = Color.FromArgb(random.Next(256), random.Next(256), random.Next(256));
+                SolidBrush brush = new SolidBrush(randomColor);
+                g.FillEllipse(brush, x, y, objectSize, objectSize);
+            }
+            pictureBox1.Invalidate();
+        }
+
+        private void AnimationTimer_Tick(object sender, EventArgs e)
+        {
+            int newX = pictureBox1.Location.X + objectSpeed * objectDirectionX;
+            int newY = pictureBox1.Location.Y + objectSpeed * objectDirectionY;
+
+            if (newX < 0  newX + pictureBox1.Width > ClientSize.Width)
+            {
+                objectDirectionX *= -1;
+            }
+
+            if (newY < 0  newY + pictureBox1.Height > ClientSize.Height)
+            {
+                objectDirectionY *= -1;
+            }
+            pictureBox1.Location = new Point(newX, newY);
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            base.OnKeyDown(e);
+
+            switch (e.KeyCode)
+            {
+                case Keys.Up:
+                    objectDirectionY = -1;
+                    break;
+                case Keys.Down:
+                    objectDirectionY = 1;
+                    break;
+                case Keys.Left:
+                    objectDirectionX = -1;
+                    break;
+                case Keys.Right:
+                    objectDirectionX = 1;
+                    break;
+            }
+        }
+
+        private void PictureBox1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+    }
+}
+ */
